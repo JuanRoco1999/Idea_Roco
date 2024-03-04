@@ -1,9 +1,17 @@
 // Función para calcular requerimientos calóricos
 function calcularCalorias() {
     // Entradas
-    const peso = parseFloat(prompt('Ingrese su peso en kg:'));
-    const estatura = parseFloat(prompt('Ingrese su estatura en cm:'));
-    const opcion = parseInt(prompt('¿Qué desea hacer?\n1. Mantener el peso\n2. Perder peso\n3. Subir peso\nIngrese el número de la opción:'));
+    let peso, estatura, opcion;
+
+    do {
+        peso = parseFloat(prompt('Ingrese su peso en kg:'));
+    } while (isNaN(peso) || peso <= 0);
+
+    do {
+        estatura = parseFloat(prompt('Ingrese su estatura en cm:'));
+    } while (isNaN(estatura) || estatura <= 0);
+
+    opcion = parseInt(prompt('¿Qué desea hacer?\n1. Mantener el peso\n2. Perder peso\n3. Subir peso\nIngrese el número de la opción:'));
 
     // Declarar variables y objetos necesarios
     let caloriasNecesarias = 0;
