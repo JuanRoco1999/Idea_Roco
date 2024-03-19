@@ -16,6 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function authenticate(username, password) {
+        if (!username || !password) {
+            showMessage("Por favor, completa todos los campos.", "error");
+            return;
+        }
+        
         const users = JSON.parse(localStorage.getItem("users")) || {};
         if (users[username] && users[username].password === password) {
             showMessage("¡Inicio de sesión exitoso!", "success");
