@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
             showMessage("Por favor, completa todos los campos.", "error");
             return;
         }
-        
+
         const users = JSON.parse(localStorage.getItem("users")) || {};
         if (users[username] && users[username].password === password) {
             showMessage("¡Inicio de sesión exitoso!", "success");
@@ -30,6 +30,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createUser(username, password) {
+        if (!username || !password) {
+            showMessage("Por favor, completa todos los campos.", "error");
+            return;
+        }
+        
         const users = JSON.parse(localStorage.getItem("users")) || {};
         if (users[username]) {
             showMessage("El usuario ya existe. Por favor, elige otro nombre de usuario.", "error");
