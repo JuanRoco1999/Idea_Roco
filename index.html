@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculador de Requerimientos Calóricos</title>
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-    <h1>Calculador de Requerimientos Calóricos</h1>
-    
+    <h1>Iniciar Sesión o Crear Usuario</h1>
+    <div id="loginForm">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username"><br><br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password"><br><br>
+        <button class="inicio" id="loginBtn">Iniciar Sesión</button>
+        <button class="inicio" id="signupBtn">Crear Usuario</button>
+    </div>
+    <div id="message"></div>
+
     <script src="js.main.js"></script>
 </body>
 </html>

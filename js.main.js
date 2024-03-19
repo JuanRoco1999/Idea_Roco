@@ -1,61 +1,46 @@
-// Función para calcular requerimientos calóricos
-function calcularCalorias() {
-    // Entradas
-    let peso, estatura, opcion;
+document.addEventListener("DOMContentLoaded", function() {
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    const messageDiv = document.getElementById("message");
 
-    do {
-        peso = parseFloat(prompt('Ingrese su peso en kg:'));
-    } while (isNaN(peso) || peso <= 0);
-
-    do {
-        estatura = parseFloat(prompt('Ingrese su estatura en cm:'));
-    } while (isNaN(estatura) || estatura <= 0);
-
-    opcion = parseInt(prompt('¿Qué desea hacer?\n1. Mantener el peso\n2. Perder peso\n3. Subir peso\nIngrese el número de la opción:'));
-
-    // Declarar variables y objetos necesarios
-    let caloriasNecesarias = 0;
-
-    // Simulador calcular las calorías necesarias
-    switch (opcion) {
-        case 1:
-            caloriasNecesarias = 66.5 + (13.75 * peso) + (5.003 * estatura);
-            break;
-        case 2:
-            caloriasNecesarias = (66.5 + (13.75 * peso) + (5.003 * estatura)) - 500; // Reducir 500 calorías para perder peso
-            break;
-        case 3:
-            caloriasNecesarias = (66.5 + (13.75 * peso) + (5.003 * estatura)) + 500; // Aumentar 500 calorías para subir peso
-            break;
-        default:
-            alert('Opción no válida.');
-            return; // Salir de la función si la opción no es válida
-    }
-
-    // Salida
-    const mensajeResultado = `Para ${(opcion === 1) ? 'mantener' : (opcion === 2) ? 'perder' : 'subir'} tu peso, necesitas consumir aproximadamente ${caloriasNecesarias.toFixed(2)} calorías por día.`;
-    alert(mensajeResultado);
-
-    // Ejemplo de lista de alimentos con calorías
-    const alimentos = [
-        { nombre: 'Manzana', calorias: 52 },
-        { nombre: 'Plátano', calorias: 89 },
-        { nombre: 'Arroz', calorias: 130 },
-        { nombre: 'Pollo', calorias: 165 },
-        { nombre: 'Leche', calorias: 103 },
-        { nombre: 'Huevo', calorias: 78 }
-    ];
-
-    // Calcular el total de calorías consumidas
-    let totalCaloriasConsumidas = 0;
-
-    alimentos.forEach(alimento => {
-        const cantidad = parseInt(prompt(`Ingrese la cantidad de ${alimento.nombre} consumida:`));
-        totalCaloriasConsumidas += alimento.calorias * cantidad;
+    loginBtn.addEventListener("click", function() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        authenticate(username, password);
     });
 
-    alert(`Total de calorías consumidas: ${totalCaloriasConsumidas}`);
-}
+    signupBtn.addEventListener("click", function() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        createUser(username, password);
+    });
 
-// Llamar a la función al cargar la página
-calcularCalorias();
+    function authenticate(username, password) {
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        if (users[username] && users[username].password === password) {
+            showMessage("¡Inicio de sesión exitoso!", "success");
+        } else {
+            showMessage("Credenciales inválidas. Inténtalo de nuevo o crea un usuario.", "error");
+        }
+    }
+
+    function createUser(username, password) {
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        if (users[username]) {
+            showMessage("El usuario ya existe. Por favor, elige otro nombre de usuario.", "error");
+        } else {
+            users[username] = { password };
+            localStorage.setItem("users", JSON.stringify(users));
+            showMessage("Usuario creado correctamente. Por favor, inicia sesión.", "success");
+        }
+    }
+
+    function showMessage(message, type) {
+        messageDiv.textContent = message;
+        if (type === "success") {
+            messageDiv.style.color = "green";
+        } else if (type === "error") {
+            messageDiv.style.color = "red";
+        }
+    }
+});
